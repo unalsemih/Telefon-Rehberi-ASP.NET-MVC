@@ -1,0 +1,77 @@
+﻿@model Telefon_Rehberi_MVC.DB.Calisanlar
+
+
+@{
+
+
+    ViewBag.Title = "Create Profile";
+}
+<style>
+    div .form-horizontal{
+        font-size:12pt;
+    }
+</style>
+<h2 style="text-align:center">Profil Düzenleme</h2>
+<div class="row">
+    <hr class="col-md-10 col-md-offset-1" />
+</div>
+<h4>@ViewBag.error</h4>
+
+@using (Html.BeginForm("ProfileCreate", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-offset-1">
+
+
+        <div class=" form-group">
+            
+            @Html.LabelFor(model => model.ad,"İsim", htmlAttributes: new { @class = "control-label col-md-2", @style= "text-align:left;" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ad, new { htmlAttributes = new { @class = "form-control", maxlength = "15", required = "required" } })
+                @Html.ValidationMessageFor(model => model.ad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.soyad,"Soyisim", htmlAttributes: new { @class = "control-label col-md-2", @style = "text-align:left;" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.soyad, new { htmlAttributes = new { @class = "form-control" , maxlength = "15", required = "required" } })
+                @Html.ValidationMessageFor(model => model.soyad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.telefon,"Telefon", htmlAttributes: new { @class = "control-label col-md-2", @style = "text-align:left;" })
+            <div class="col-md-8">
+                @Html.Editor("Telefon", new { htmlAttributes = new { @class = "form-control", type = "tel", maxlength = "10", required = "required" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.yoneticiID, "Yönetici Adı", htmlAttributes: new { @class = "control-label col-md-2", @style = "text-align:left;" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.yoneticiID, (List<SelectListItem>)ViewBag.yoneticiList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.yoneticiID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.departmanID, "Departman Adı", htmlAttributes: new { @class = "control-label col-md-2", @style = "text-align:left;" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.departmanID, (List<SelectListItem>)ViewBag.departmanList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.departmanID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
